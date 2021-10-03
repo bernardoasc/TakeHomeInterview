@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1" />
+  <link rel="stylesheet" href="../css/bootstrap.css" />
+  <title>CyberPatient</title>
+</head>
+
+<body>
+  <div id="nav">
+    <div class="col-sm nav-align">
+      <h1 id="title"><img src="https://static.wixstatic.com/media/bfce24_29340407bc344582ad0a0e20922a224a~mv2.png/v1/fill/w_400,h_88,al_c,q_85,usm_0.66_1.00_0.01/CyberPatient-logo-with-tagline-full-colo.webp"/></h1>
+    </div>
+    <div class="input-group">
+    <div class="form-outline">
+    <form class="search-form" action="/index" method="post">
+      <input type="search" class="form-control" placeholder="medication Name" name="name" required />
+      <input class="btn btn-primary" type="submit" value="search by name"/>
+    </form>
+    <form class="search-form" action="/" method="post">
+      <select class="form-control" id="catList" name="category" required>
+        <option value="">Category</option>
+        <% for(const category of categories) { %>
+        <option value="<%= category %>"><%= category %></option>
+        <% } %>
+      </select>
+      <input class="btn btn-primary" type="submit" value="search by Category"/>
+    </form>
+    
+    </div>
+  </div>
+
+  <script>
+    const num = contacts.length;
+    const pages = Math.ceil(num / 10);
+    const lastPage = (((num / 10) - Math.floor(num / 10)).toFixed(1)) * 10;
+    var pageEnd = 10;
+    if (pages > 0) {
+    for (let i = 1; i <= pages; i++) {
+      document.getElementById("pages").insertAdjacentHTML("beforeEnd", "<li><a>" + i + "</a></li>");
+    }
+   }
+   const pageArr = Array.from(document.querySelectorAll('ul.pagination a'));
+   pageArr.map(arr => arr.addEventListener('click', changePage));
+   
+  </script>
+    
+
+    
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Name</th>
+          <th>Dose</th>
+          <th>Description</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        
+
+        <% for(const medication of displays) { %>
+
+          <tr>
+            <td>
+              <%= medication.category %>
+            </td>
+            <td>
+              <%= medication.name %>
+            </td>
+            <td>
+              <%= medication.dose %>
+            </td>
+            <td>
+              <%= medication.description%>
+            </td>
+            <td>
+              <%= medication.cost%>
+            </td>
+          </tr>
+
+          <% } %>
+      </tbody>
+    </table>
+
+    <ul id="pages" class="pagination">
+            
+    </ul>
+</body>
+
+</html>
